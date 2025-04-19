@@ -1,9 +1,9 @@
 {
-    "version": "1.114.0",
+    "version": "1.115.0",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.114.0/vmutils-windows-amd64-v1.114.0.zip",
-            "hash": "0000000000000000000000000000000000000000000000000000000000000000"
+            "url": "https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.115.0/vmutils-windows-amd64-v1.115.0.zip",
+            "hash": "3c35c1bb3c656b52506916afd6412d4bf5113f69de419445ceb852409ca1f73a"
         }
     },
     "bin": [
