@@ -14,6 +14,20 @@
         "windows_exporter.exe"
     ],
     "extract_dir": "PFiles64/windows_exporter",
+    "checkver": "github",
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/prometheus-community/windows_exporter/releases/download/v$version/windows_exporter-$version-amd64.msi"
+            },
+            "arm64": {
+                "url": "https://github.com/prometheus-community/windows_exporter/releases/download/v$version/windows_exporter-$version-arm64.msi"
+            }
+        },
+        "hash": {
+            "url": "$baseurl/sha256sums.txt"
+        }
+    },
     "homepage": "https://github.com/prometheus-community/windows_exporter",
     "license": "MIT",
     "description": "Prometheus exporter for Windows machines"
