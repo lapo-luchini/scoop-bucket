@@ -25,7 +25,7 @@
         "nssm.exe start windows_exporter"
     ],
     "pre_uninstall": [
-        "nssm.exe stop windows_exporter confirm",
+        "nssm.exe stop windows_exporter",
         "nssm.exe remove windows_exporter confirm"
     ],
     "checkver": "github",
