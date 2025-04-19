@@ -14,6 +14,20 @@
         "windows_exporter.exe"
     ],
     "extract_dir": "PFiles64/windows_exporter",
+    "depends": [
+        "nssm"
+    ],
+    "pre_install": [
+        "if (-not $global) { Write-Host \"This package requires global installation. Please install usiong --global.\"; exit 1 }"
+    ],
+    "post_install": [
+        "nssm.exe install windows_exporter $dir\\windows_exporter.exe",
+        "nssm.exe start windows_exporter"
+    ],
+    "pre_uninstall": [
+        "nssm.exe stop windows_exporter confirm",
+        "nssm.exe remove windows_exporter confirm"
+    ],
     "checkver": "github",
     "autoupdate": {
         "architecture": {
