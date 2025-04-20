@@ -13,15 +13,18 @@
     "persist": [
         "service.xml"
     ],
-    "pre_install": "if (-not $global) { Write-Host \"This package requires global installation. Please install using --global.\"; exit 1 }",
+    "pre_install": [
+        "Write-Host Uno ; Write-Host Due",
+        "if (-not $global) { Write-Host \"This package requires global installation. Please install using --global.\"; exit 1 }",
+        "Write-Host Controllo ; if (-not (Test-Path \"$persist_dir\\service3.xml\")) { Write-Host Creo ; New-Item -Path \"$dir\" -Name service.xml -ItemType File -Value \"<service>\n  <id>victoriametrics-agent</id>\n  <name>Victoria Metrics Agent</name>\n  <description>Victoria Metrics Agent scrapes Prometheus-style metrics and sends them to a central Victoria Metrics TSDB.</description>\n  <executable>$dir\\vmagent.exe</executable>\n  <arguments>-memory.allowedBytes=128MiB -enableTCP6 -httpListenAddr=:8429 -graphiteListenAddr=:2003 -promscrape.config=\\\"$persist_dir\\scrape.yml\\\"</arguments>\n  <log mode=\"roll\"></log>\n</service>\" }"
+    ],
     "post_install": [
         "Push-Location \"$dir\"",
         "Get-ChildItem -Filter \"vmagent-*.exe\" | Rename-Item -NewName vmagent.exe",
         "Remove-Item *prod.exe",
         "Pop-Location",
-        "if (!(Test-Path \"$persist_dir\\service.xml\")) { New-Item -Path \"$persist_dir\\service.xml\" -ItemType File -Value \"<service>\n  <id>victoriametrics-agent</id>\n  <name>Victoria Metrics Agent</name>\n  <description>Victoria Metrics Agent scrapes Prometheus-style metrics and sends them to a central Victoria Metrics TSDB.</description>\n  <executable>$dir\\vmagent.exe</executable>\n  <arguments>-memory.allowedBytes=128MiB -enableTCP6 -httpListenAddr=:8429 -graphiteListenAddr=:2003 -promscrape.config=\"$persist_dir\\scrape.yml\"</arguments>\n  <log mode=\"roll\"></log>\n</service>\" }",
-        "winsw.exe install \"$persist_dir\\service.xml\"",
-        "service start victoriametrics-agent"
+        "echo winsw.exe install \"$persist_dir\\service.xml\"",
+        "echo service start victoriametrics-agent"
     ],
     "pre_uninstall": [
         "nssm.exe stop windows_exporter",
