@@ -12,7 +12,7 @@
     },
     "extract_dir": "PFiles64/windows_exporter",
     "depends": "nssm",
-    "pre_install": "if (-not $global) { Write-Host \"This package requires global installation. Please install usiong --global.\"; exit 1 }",
+    "pre_install": "if (-not $global) { Write-Host \"This package requires global installation. Please install using --global.\"; exit 1 }",
     "post_install": [
         "nssm.exe install windows_exporter $dir\\windows_exporter.exe",
         "nssm.exe start windows_exporter"
