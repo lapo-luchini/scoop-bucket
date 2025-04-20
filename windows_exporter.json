@@ -10,7 +10,6 @@
             "hash": "08464b16e4e456d118a3c8721857ce35a92d228278e4db3c6cbfa3a2ffac80ed"
         }
     },
-    "bin": "windows_exporter.exe",
     "extract_dir": "PFiles64/windows_exporter",
     "depends": "nssm",
     "pre_install": "if (-not $global) { Write-Host \"This package requires global installation. Please install usiong --global.\"; exit 1 }",
