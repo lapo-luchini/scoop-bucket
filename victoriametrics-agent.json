@@ -11,24 +11,28 @@
     },
     "depends": "winsw",
     "persist": [
-        "service.xml"
+        "service.yml"
     ],
     "pre_install": [
         "Write-Host Uno ; Write-Host Due",
         "if (-not $global) { Write-Host \"This package requires global installation. Please install using --global.\"; exit 1 }",
-        "if (-not (Test-Path \"$persist_dir\\service.xml\")) { New-Item -Path \"$dir\\service.xml\" -ItemType File -Value \"<service>\n  <id>victoriametrics-agent</id>\n  <name>Victoria Metrics Agent</name>\n  <description>Victoria Metrics Agent scrapes Prometheus-style metrics and sends them to a central Victoria Metrics TSDB.</description>\n  <executable>$dir\\vmagent.exe</executable>\n  <arguments>-memory.allowedBytes=128MiB -enableTCP6 -httpListenAddr=:8429 -graphiteListenAddr=:2003 -promscrape.config=`\"$persist_dir\\scrape.yml`\"</arguments>\n  <log mode=`\"roll`\"></log>\n</service>\" }"
+        "if (-not (Test-Path \"$persist_dir\\service.yml\")) { New-Item -Path \"$dir\\service.yml\" -ItemType File -Value \"id: victoriametrics-agent\nname: Victoria Metrics Agent\ndescription: Victoria Metrics Agent scrapes Prometheus-style metrics and sends them to a central Victoria Metrics TSDB.\nexecutable: $dir\\vmagent.exe\narguments: -memory.allowedBytes=128MiB -enableTCP6 -httpListenAddr=:8429 -graphiteListenAddr=:2003 -promscrape.config=`\"$persist_dir\\scrape.yml`\"\nlog:\n  mode: roll\" }"
     ],
     "post_install": [
         "Push-Location \"$dir\"",
         "Get-ChildItem -Filter \"vmagent-*.exe\" | Rename-Item -NewName vmagent.exe",
         "Remove-Item *prod.exe",
         "Pop-Location",
-        "echo winsw.exe install \"$persist_dir\\service.xml\"",
-        "echo service start victoriametrics-agent"
+        "Push-Location \"$persist_dir\"",
+        "winsw.exe install service.yml",
+        "winsw.exe start service.yml",
+        "Pop-Location"
     ],
     "pre_uninstall": [
-        "nssm.exe stop windows_exporter",
-        "nssm.exe remove windows_exporter confirm"
+        "Push-Location \"$persist_dir\"",
+        "winsw.exe stop service.yml",
+        "winsw.exe uninstall service.yml",
+        "Pop-Location"
     ],
     "checkver": "github",
     "autoupdate": {
