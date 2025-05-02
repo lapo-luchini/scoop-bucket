@@ -12,9 +12,16 @@
     },
     "extract_dir": "PFiles64/windows_exporter",
     "depends": "nssm",
-    "pre_install": "if (-not $global) { Write-Host \"This package requires global installation. Please install using --global.\"; exit 1 }",
+    "persist": [
+        "config.yaml"
+    ],
+    "pre_install": [
+        "if (-not $global) { Write-Host \"This package requires global installation. Please install using --global.\"; exit 1 }",
+        "New-Item -Path \"$dir\\textfile_inputs\" -ItemType Directory",
+        "if (-not (Test-Path \"$persist_dir\\config.yaml\")) { New-Item -Path \"$dir\\config.yaml\" -ItemType File -Value \"# https://github.com/prometheus-community/windows_exporter/blob/master/docs/example_config.yml\n\ncollectors:\n  enabled: '[defaults],textfile'\n\" }"
+    ],
     "post_install": [
-        "nssm.exe install windows_exporter $dir\\windows_exporter.exe",
+        "nssm.exe install windows_exporter \"$dir\\windows_exporter.exe\" --log.file eventlog --config.file=\"$persist_dir\\config.yaml\"",
         "nssm.exe start windows_exporter"
     ],
     "pre_uninstall": [
