@@ -19,7 +19,7 @@
         "if (-not (Test-Path \"$persist_dir\\config.yaml\")) { New-Item -Path \"$dir\\config.yaml\" -ItemType File -Value \"# https://github.com/prometheus-community/windows_exporter/blob/master/docs/example_config.yml
 
 collectors:
-  enabled: '[defaults],textfile'
+  enabled: '[defaults],time,textfile'
 \" }"
     ],
     "post_install": [
