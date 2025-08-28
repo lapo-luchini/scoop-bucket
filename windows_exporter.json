@@ -1,24 +1,26 @@
 {
-    "version": "0.30.7",
+    "version": "0.31.2",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/prometheus-community/windows_exporter/releases/download/v0.30.7/windows_exporter-0.30.7-amd64.msi",
-            "hash": "b7adcf630ff8a035921ffc100138c4aa0d8632f789e7a16f91e2912a96784bad"
+            "url": "https://github.com/prometheus-community/windows_exporter/releases/download/v0.31.2/windows_exporter-0.31.2-amd64.msi",
+            "hash": "5fad4aa4e7a7e792f5e51e86d84cca44943b73c60bb56b47664892ff2b623d14"
         },
         "arm64": {
-            "url": "https://github.com/prometheus-community/windows_exporter/releases/download/v0.30.7/windows_exporter-0.30.7-arm64.msi",
-            "hash": "58037d330fbb389f9f5aaf30342f888e4290a2b9fb98e4d3bc1103dd91260dfc"
+            "url": "https://github.com/prometheus-community/windows_exporter/releases/download/v0.31.2/windows_exporter-0.31.2-arm64.msi",
+            "hash": "b0e43ff7ed56164969979380ccbb422f7b78f18b0a86fb054fc612c934b243ee"
         }
     },
     "extract_dir": "PFiles64/windows_exporter",
     "depends": "nssm",
-    "persist": [
-        "config.yaml"
-    ],
+    "persist": "config.yaml",
     "pre_install": [
         "if (-not $global) { Write-Host \"This package requires global installation. Please install using --global.\"; exit 1 }",
         "New-Item -Path \"$dir\\textfile_inputs\" -ItemType Directory",
-        "if (-not (Test-Path \"$persist_dir\\config.yaml\")) { New-Item -Path \"$dir\\config.yaml\" -ItemType File -Value \"# https://github.com/prometheus-community/windows_exporter/blob/master/docs/example_config.yml\n\ncollectors:\n  enabled: '[defaults],textfile'\n\" }"
+        "if (-not (Test-Path \"$persist_dir\\config.yaml\")) { New-Item -Path \"$dir\\config.yaml\" -ItemType File -Value \"# https://github.com/prometheus-community/windows_exporter/blob/master/docs/example_config.yml
+
+collectors:
+  enabled: '[defaults],textfile'
+\" }"
     ],
     "post_install": [
         "nssm.exe install windows_exporter \"$dir\\windows_exporter.exe\" --log.file eventlog --config.file=\"$persist_dir\\config.yaml\"",
