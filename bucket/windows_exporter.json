@@ -1,13 +1,13 @@
 {
-    "version": "0.31.2",
+    "version": "0.31.3",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/prometheus-community/windows_exporter/releases/download/v0.31.2/windows_exporter-0.31.2-amd64.msi",
-            "hash": "5fad4aa4e7a7e792f5e51e86d84cca44943b73c60bb56b47664892ff2b623d14"
+            "url": "https://github.com/prometheus-community/windows_exporter/releases/download/v0.31.3/windows_exporter-0.31.3-amd64.msi",
+            "hash": "afd0aaca29f32b75427dfa6e7cb27db17e9b74933818133f974c41808286d3f3"
         },
         "arm64": {
-            "url": "https://github.com/prometheus-community/windows_exporter/releases/download/v0.31.2/windows_exporter-0.31.2-arm64.msi",
-            "hash": "b0e43ff7ed56164969979380ccbb422f7b78f18b0a86fb054fc612c934b243ee"
+            "url": "https://github.com/prometheus-community/windows_exporter/releases/download/v0.31.3/windows_exporter-0.31.3-arm64.msi",
+            "hash": "addcc9987134df8b643515ef3acd03f7fee017eb7f9bddd8d48ff48aaa171fc9"
         }
     },
     "extract_dir": "PFiles64/windows_exporter",
